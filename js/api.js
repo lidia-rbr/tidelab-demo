@@ -79,7 +79,6 @@ function upsert(collection, item) {
 }
 
 export async function apiFetch(input, init = {}) {
-  document.documentElement.dataset.demoApi = String(input);
   const url = new URL(String(input), window.location.href);
   const path = url.pathname;
   const method = String(init.method || "GET").toUpperCase();
