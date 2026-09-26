@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive BookMyClass product demo">
+  <title>BookMyClass — Interactive demo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Restart demo">
+      <span class="brand-mark">B</span>
+      <span><strong>BookMyClass</strong><small>Ocean Waves Surf School</small></span>
+    </a>
+    <div class="demo-controls">
+      <span class="demo-badge">Interactive demo</span>
+      <button class="quiet-button" id="reset-button" type="button">Reset demo</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="persona">
+        <div class="avatar" id="avatar">JD</div>
+        <div><strong id="persona-name">John Doe</strong><small id="persona-role">Business owner</small></div>
+      </div>
+      <nav aria-label="Demo views">
+        <button class="nav-button active" data-view="admin" type="button"><span>▦</span> Business dashboard</button>
+        <button class="nav-button" data-view="client" type="button"><span>○</span> Client portal</button>
+      </nav>
+      <div class="tour-note">
+        <strong>Your private playground</strong>
+        <p>Changes stay in this browser tab only. Drag classes, create new ones, and book as a client.</p>
+      </div>
+    </aside>
+
+    <main>
+      <section id="admin-view">
+        <div class="page-heading">
+          <div><p class="eyebrow">Business dashboard</p><h1>Good morning, John</h1><p>Here is what is happening at your school this week.</p></div>
+          <button class="primary-button" id="open-create-button" type="button">+ Create class</button>
+        </div>
+        <div class="stats" id="admin-stats"></div>
+        <section class="panel">
+          <div class="panel-heading"><div><h2>Weekly schedule</h2><p>Drag any class to another time slot.</p></div><span id="week-label"></span></div>
+          <div class="schedule-wrap"><div class="schedule" id="admin-schedule"></div></div>
+        </section>
+      </section>
+
+      <section id="client-view" hidden>
+        <div class="page-heading">
+          <div><p class="eyebrow">Client portal</p><h1>Hello, Jane</h1><p>Book your next session at Ocean Waves Surf School.</p></div>
+          <span class="credit-pill" id="credit-pill"></span>
+        </div>
+        <div class="stats" id="client-stats"></div>
+        <section class="panel">
+          <div class="panel-heading"><div><h2>Available classes</h2><p>Click a class to book or cancel it.</p></div><div class="legend"><span><i class="dot available"></i>Available</span><span><i class="dot booked"></i>Booked</span></div></div>
+          <div class="schedule-wrap"><div class="schedule" id="client-schedule"></div></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="create-dialog">
+    <form id="create-form">
+      <div class="dialog-heading"><div><p class="eyebrow">New schedule block</p><h2>Create a class</h2></div><button class="icon-button" value="cancel" formmethod="dialog" aria-label="Close">×</button></div>
+      <label>Class name<input name="name" required maxlength="40" value="Open Surf"></label>
+      <div class="form-row"><label>Day<select name="day" id="day-select"></select></label><label>Time<select name="hour" id="hour-select"></select></label></div>
+      <div class="form-row"><label>Coach<select name="coach"><option>Maya</option><option>John</option><option>Leo</option></select></label><label>Capacity<input name="capacity" type="number" min="1" max="30" value="8" required></label></div>
+      <div class="dialog-actions"><button class="quiet-button" value="cancel" formmethod="dialog">Cancel</button><button class="primary-button" type="submit">Create class</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./demo.js"></script>
+</body>
+</html>
