@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookMyClass</title>
+  <link rel="stylesheet" href="./css/styles.css?v=20260809-16" />
+</head>
+
+<body class="app-body">
+  <button id="client-view-switch-btn" class="view-mode-switch admin-client-view-switch hidden" type="button">
+    Client view
+  </button>
+  <div id="app-loader" class="app-loader-overlay hidden">
+    <div class="app-loader-box">
+      <div class="app-loader-spinner"></div>
+      <h2>Loading BookMyClass</h2>
+      <p>Checking session and preparing your workspace…</p>
+    </div>
+  </div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <div class="brand-logo" role="img" aria-label="Business logo"></div>
+          <div class="brand-text">
+            <h1 id="business-name">#Company Name</h1>
+            <p id="business-slogan"># Company Slogan</p>
+          </div>
+        </div>
+        <nav class="main-nav">
+          <button class="nav-item active" data-page="dashboard" type="button"><span class="nav-label">Dashboard</span></button>
+          <button class="nav-item" data-page="schedule" type="button"><span class="nav-label">Schedule</span></button>
+          <button class="nav-item" data-page="clients" type="button"><span class="nav-label">Clients</span></button>
+          <button class="nav-item" data-page="packs" type="button"><span class="nav-label">Packs</span></button>
+          <button class="nav-item" data-page="settings" type="button"><span class="nav-label">Settings</span></button>
+        </nav>
+      </div>
+
+      <div id="sidebar-schedule-calendar" class="sidebar-schedule-calendar hidden"></div>
+
+      <div class="sidebar-bottom">
+        <div class="member-card">
+          <p class="member-label">Connected as</p>
+          <p id="member-info" class="member-value">Loading...</p>
+        </div>
+
+        <div class="powered-by" aria-label="Powered by TideLab">
+          <span class="powered-by-label">Poweredby</span>
+          <img src="./assets/figma/tidelab-logo.svg" alt="TideLab" width="120" height="23" />
+          <span class="powered-by-tagline">Align your surf business with the tide.</span>
+        </div>
+        <button id="logout-btn" class="ghost-btn" type="button">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar hidden">
+        <div>
+          <h2 id="page-title"></h2>
+          <p id="page-subtitle" class="muted">Business overview</p>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="prev-week-btn" class="ghost-btn" type="button">&lt; Prev</button>
+          <div id="week-label" class="week-label">Week</div>
+          <button id="next-week-btn" class="ghost-btn" type="button">Next &gt;</button>
+        </div>
+      </header>
+
+      <section id="page-content" class="page-content" data-page="dashboard">
+        <section class="dashboard-loading-skeleton" aria-label="Calculating dashboard metrics" aria-busy="true">
+          <div class="dashboard-skeleton-header">
+            <span class="dashboard-loading-welcome">Welcome back…</span>
+            <span class="skeleton-shimmer skeleton-week"></span>
+            <span class="skeleton-shimmer skeleton-label"></span>
+          </div>
+          <div class="dashboard-skeleton-periods">
+            <section class="dashboard-skeleton-period skeleton-weekly-period">
+              <span class="skeleton-shimmer skeleton-period-heading"></span>
+              <div class="dashboard-skeleton-weekly-grid">
+                <div class="dashboard-skeleton-card skeleton-schedule">
+                  <span class="skeleton-shimmer skeleton-title"></span>
+                  <div class="skeleton-schedule-days">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+                <div class="dashboard-skeleton-card skeleton-weekly-kpi">
+                  <span class="skeleton-shimmer skeleton-title"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="dashboard-skeleton-period skeleton-monthly-period">
+              <span class="skeleton-shimmer skeleton-period-heading"></span>
+              <div class="dashboard-skeleton-monthly-grid">
+                <div class="dashboard-skeleton-card skeleton-business-charts">
+                  <span class="skeleton-shimmer skeleton-title"></span>
+                  <div class="skeleton-business-chart-grid">
+                    <div class="skeleton-chart-block">
+                      <span class="skeleton-shimmer skeleton-chart-meta"></span>
+                      <span class="skeleton-shimmer skeleton-chart"></span>
+                    </div>
+                    <div class="skeleton-chart-block skeleton-pack-chart-block">
+                      <span class="skeleton-shimmer skeleton-chart-meta"></span>
+                      <span class="skeleton-shimmer skeleton-pack-bar"></span>
+                      <span class="skeleton-shimmer skeleton-pack-bar"></span>
+                      <span class="skeleton-shimmer skeleton-pack-bar"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-skeleton-card skeleton-heatmap">
+                  <div class="skeleton-heatmap-heading">
+                    <span class="skeleton-shimmer skeleton-title"></span>
+                    <div class="skeleton-heatmap-legend"><span></span><span></span><span></span><span></span><span></span></div>
+                  </div>
+                  <div class="skeleton-heatmap-weekdays"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="skeleton-heatmap-dots">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+                <div class="dashboard-skeleton-card skeleton-monthly-kpi">
+                  <span class="skeleton-shimmer skeleton-title"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                  <span class="skeleton-shimmer skeleton-row"></span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <div id="schedule-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="schedule-modal-title">Add event</h3>
+        <button id="close-schedule-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <form id="schedule-form" class="form-stack">
+        <label>
+          <span>Class name</span>
+          <input id="schedule-class-name" type="text" required />
+        </label>
+
+        <label>
+          <span>Coach name</span>
+          <input id="schedule-coach-name" type="text" required />
+        </label>
+
+        <label>
+          <span>Date</span>
+          <input id="schedule-date" type="date" required />
+        </label>
+
+        <label>
+          <span>Start time</span>
+          <input id="schedule-start-time" type="time" required />
+        </label>
+
+        <label>
+          <span>Length (minutes)</span>
+          <input id="schedule-duration" type="number" min="15" max="480" step="15" value="60" required />
+        </label>
+
+        <label>
+          <span>Capacity</span>
+          <input id="schedule-capacity" type="number" min="1" value="10" required />
+        </label>
+
+        <label class="checkbox-row">
+          <input id="schedule-recurring" type="checkbox" />
+          <span>Repeat weekly</span>
+        </label>
+
+        <div class="modal-actions">
+          <button id="delete-schedule-item-btn" class="ghost-btn hidden" type="button">Delete</button>
+          <button id="book-schedule-item-btn" class="ghost-btn hidden" type="button">Book client</button>
+          <button class="primary-btn" type="submit">Save event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="confirm-modal" class="modal-overlay hidden">
+    <div class="modal-card confirm-card">
+      <div class="modal-header">
+        <h3 id="confirm-title">Confirm action</h3>
+      </div>
+
+      <p id="confirm-message" class="confirm-message">Please confirm this action.</p>
+
+      <div class="modal-actions">
+        <button id="cancel-confirm-btn" class="secondary-btn" type="button">Cancel</button>
+        <button id="confirm-action-btn" class="primary-btn" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <div id="client-modal" class="modal-overlay hidden">
+    <div class="modal-card client-detail-card">
+      <div class="modal-header">
+        <h3>Add client</h3>
+        <button id="close-client-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <div class="client-detail-layout">
+        <section class="client-detail-pane">
+          <div class="client-detail-section-heading">
+            <span class="form-section-label">Client details</span>
+          </div>
+          <form id="client-form" class="form-stack">
+            <label>
+              <span>First name</span>
+              <input id="client-first-name" type="text" required />
+            </label>
+
+            <label>
+              <span>Last name</span>
+              <input id="client-last-name" type="text" required />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input id="client-email" type="email" />
+            </label>
+            <p id="client-email-note" class="form-note hidden">Without an email address, this client can be managed by admins but will not be able to book classes themselves.</p>
+
+            <label>
+              <span>Phone</span>
+              <input id="client-phone" type="text" />
+            </label>
+
+            <label>
+              <span>Country (optional)</span>
+              <select id="client-country">
+                <option value="">No country</option>
+                <option value="PT">Portugal</option>
+                <option value="ES">Spain</option>
+                <option value="FR">France</option>
+                <option value="GB">England</option>
+                <option value="DE">Germany</option>
+                <option value="NL">Netherlands</option>
+                <option value="CH">Switzerland</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </label>
+
+            <label id="client-country-other-label" class="hidden">
+              <span>Other country</span>
+              <input id="client-country-other" type="text" maxlength="80" placeholder="Enter country" />
+            </label>
+
+            <label style="display:flex;align-items:center;gap:10px;">
+              <input id="client-can-book" type="checkbox" checked />
+              <span>Can book classes</span>
+            </label>
+
+            <div class="modal-actions">
+              <button id="delete-client-btn" class="ghost-btn hidden" type="button">Delete</button>
+              <button id="edit-client-btn" class="ghost-btn hidden" type="button">Edit details</button>
+              <button id="save-client-btn" class="primary-btn" type="submit">Create client</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="client-pack-editor" class="client-detail-pane client-pack-pane hidden">
+          <div class="client-detail-section-heading">
+            <span class="form-section-label">Membership</span>
+          </div>
+
+          <div class="client-pack-editor">
+            <div class="client-pack-editor-header">
+              <h2 id="client-current-pack-name">No active pack</h2>
+              <span id="client-current-pack-status" class="client-status-pill is-empty">No Credits</span>
+            </div>
+
+            <div id="client-current-pack-details" class="client-current-pack-details hidden">
+              <label>
+                <span>Classes left</span>
+                <input id="client-current-pack-remaining" type="number" min="0" step="1" disabled />
+              </label>
+              <div class="client-current-pack-summary">
+                <span id="client-current-pack-total">0 total</span>
+                <span id="client-current-pack-used">0 used</span>
+              </div>
+            </div>
+
+            <div id="client-assign-pack-fields" class="client-assign-pack-fields hidden">
+              <label>
+                <span>Pack to assign</span>
+                <select id="client-assign-pack-template"></select>
+              </label>
+              <button id="assign-client-pack-btn" class="secondary-btn" type="button">Assign pack</button>
+            </div>
+
+            <p id="client-pack-editor-note" class="form-note"></p>
+          </div>
+
+          <div id="client-pack-actions" class="client-column-actions hidden">
+            <button id="edit-client-membership-btn" class="ghost-btn" type="button">Edit pack</button>
+            <button id="save-client-membership-btn" class="primary-btn hidden" type="button">Save pack</button>
+          </div>
+        </section>
+
+        <section class="client-detail-pane client-history-pane">
+          <div class="client-detail-section-heading client-history-header">
+            <span class="form-section-label">Activity history</span>
+          </div>
+          <div id="client-booking-history" class="client-history-list"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div id="client-import-modal" class="modal-overlay hidden">
+    <div class="modal-card client-import-card">
+      <div class="modal-header">
+        <h3>Import clients</h3>
+        <button id="close-client-import-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <div class="client-import-body">
+        <p class="client-import-copy">Upload a CSV or Excel .xlsx file with one client per row.</p>
+
+        <ol class="client-import-steps">
+          <li>Create these columns in Excel or Google Sheets.</li>
+          <li>Download the file as CSV or Excel .xlsx.</li>
+          <li>Choose the file here and click Import clients.</li>
+        </ol>
+
+        <div class="client-import-fields">
+          <span>First name *</span>
+          <span>Last name *</span>
+          <span>Email</span>
+          <span>Phone</span>
+          <span>Country</span>
+          <span>Can book</span>
+        </div>
+
+        <div class="client-import-file-panel">
+          <label for="client-import-file">Import file</label>
+          <input id="client-import-file" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+          <p class="form-note">Required columns are marked with *. Can book accepts yes/no.</p>
+        </div>
+
+        <div id="client-import-result" class="client-import-result hidden"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="import-clients-file-btn" class="primary-btn" type="button">Import clients</button>
+      </div>
+    </div>
+  </div>
+  <div id="class-template-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add event template</h3>
+        <button id="close-class-template-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <form id="class-template-form" class="form-stack">
+        <label>
+          <span>Class name</span>
+          <input id="class-template-name" type="text" required />
+        </label>
+
+        <label>
+          <span>Coach name</span>
+          <input id="class-template-coach" type="text" required />
+        </label>
+
+        <label>
+          <span>Language</span>
+          <input
+            id="class-template-language"
+            type="text"
+            value="EN"
+            minlength="2"
+            maxlength="8"
+            pattern="[A-Za-z]{2,8}"
+            placeholder="EN"
+            autocomplete="off"
+            required
+          />
+        </label>
+
+        <label>
+          <span>Duration</span>
+          <input id="class-template-duration" type="number" min="15" step="15" value="60" required />
+        </label>
+
+        <label>
+          <span>Capacity</span>
+          <input id="class-template-capacity" type="number" min="1" value="10" required />
+        </label>
+
+        <label>
+          <span>Color</span>
+          <input id="class-template-color" type="hidden" value="#1f8f46" required />
+        </label>
+
+        <div class="modal-actions">
+          <button id="delete-class-template-btn" class="ghost-btn hidden" type="button">Delete</button>
+          <button id="save-class-template-btn" class="primary-btn" type="submit">Create template</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="pack-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add pack</h3>
+        <button id="close-pack-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <form id="pack-form" class="form-stack">
+        <label>
+          <span>Pack name</span>
+          <input id="pack-name" type="text" required />
+        </label>
+
+        <label>
+          <span>Pack type</span>
+          <select id="pack-type" required>
+            <option value="credits">Normal pack</option>
+            <option value="monthly">Monthly pack</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Number of classes</span>
+          <input id="pack-class-count" type="number" min="1" value="10" required />
+        </label>
+
+        <label>
+          <span>Price</span>
+          <input id="pack-price" type="number" min="0" step="0.01" value="0" required />
+        </label>
+
+        <label>
+          <span>Details</span>
+          <input id="pack-details" type="text" />
+        </label>
+
+        <div class="modal-actions">
+          <button id="delete-pack-btn" class="ghost-btn hidden" type="button">Delete</button>
+          <button id="save-pack-btn" class="primary-btn" type="submit">Create pack</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="client-pack-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="client-pack-modal-title">Assign pack to client</h3>
+        <div class="modal-header-actions">
+          <button id="edit-client-pack-btn" class="ghost-btn icon-btn hidden" type="button" aria-label="Edit classes left" title="Edit classes left">&#9998;</button>
+          <button id="close-client-pack-modal-btn" class="ghost-btn" type="button">Close</button>
+        </div>
+      </div>
+
+      <form id="client-pack-form" class="form-stack">
+        <div id="client-pack-detail-card" class="client-pack-detail-card hidden">
+          <p id="client-pack-detail-type" class="pack-type">Pack</p>
+          <h3 id="client-pack-detail-client">Client</h3>
+          <p id="client-pack-detail-template" class="muted">Pack template</p>
+
+          <div class="client-pack-detail-count">
+            <label id="client-pack-remaining-label">
+              <span>Classes left</span>
+              <input id="client-pack-remaining-classes" type="number" min="0" step="1" disabled />
+            </label>
+            <span id="client-pack-detail-total" class="muted">of 0 classes</span>
+          </div>
+
+          <div class="client-pack-detail-meta">
+            <span id="client-pack-detail-used">0 used</span>
+            <span id="client-pack-detail-status">active</span>
+          </div>
+        </div>
+
+        <label id="client-pack-client-label">
+          <span>Client</span>
+          <select id="client-pack-client-id" required></select>
+        </label>
+
+        <label id="client-pack-template-label">
+          <span>Pack template</span>
+          <select id="client-pack-template-id" required></select>
+        </label>
+
+        <div class="modal-actions">
+          <button id="save-client-pack-btn" class="primary-btn" type="submit">Assign pack</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="booking-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="booking-modal-title">Book client</h3>
+        <button id="close-booking-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <div id="booking-details" class="booking-details hidden"></div>
+
+      <form id="booking-form" class="form-stack">
+        <fieldset class="checkbox-select-field">
+          <legend>Clients</legend>
+          <div class="booking-client-picker">
+            <input
+              id="booking-client-search"
+              type="search"
+              placeholder="Type a client name..."
+              autocomplete="off"
+              aria-label="Search clients"
+            />
+            <div id="booking-client-list" class="checkbox-select-list"></div>
+          </div>
+        </fieldset>
+
+        <div class="modal-actions">
+          <button class="primary-btn" type="submit">Create bookings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="booking-pack-modal" class="modal-overlay hidden">
+    <div class="modal-card booking-pack-modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>Assign packs before booking</h3>
+          <p class="booking-pack-modal-copy">Choose a pack for each client without available credits.</p>
+        </div>
+        <button id="close-booking-pack-modal-btn" class="ghost-btn" type="button">Close</button>
+      </div>
+
+      <form id="booking-pack-form" class="form-stack">
+        <div id="booking-pack-client-list" class="booking-pack-client-list"></div>
+
+        <div class="modal-actions">
+          <button class="primary-btn" type="submit">Assign packs and book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="react-ui-root"></div>
+  <script type="module" src="./js/app.js?v=20260809-7"></script>
+</body>
+
+</html>

@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Classes</title>
+  <link rel="stylesheet" href="./css/styles.css?v=20260808-7" />
+  <style>
+    .portal-header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .portal-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .portal-brand-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .portal-brand-text p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .portal-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .client-name-pill {
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--panel-soft);
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      font-weight: 500;
+    }
+
+    .logout-link {
+      font-size: 13px;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: var(--font);
+    }
+
+    .logout-link:hover {
+      color: var(--text);
+    }
+
+    .portal-body {
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: minmax(210px, 250px) minmax(0, 1fr) minmax(210px, 250px);
+      align-items: start;
+      gap: 18px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .portal-center {
+      display: grid;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .portal-left-rail {
+      display: grid;
+      gap: 18px;
+      position: sticky;
+      top: 94px;
+    }
+
+    .portal-side-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .portal-bookings-card {
+      position: sticky;
+      top: 94px;
+      max-height: calc(100vh - 118px);
+      overflow: auto;
+    }
+
+    .portal-business-picture {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-md);
+      display: grid;
+      place-items: center;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 42px;
+      font-weight: 700;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .portal-business-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .portal-business-picture img.hidden {
+      display: none;
+    }
+
+    .portal-business-picture.has-image {
+      color: transparent;
+    }
+
+    .portal-side-card h2,
+    .portal-side-card h3,
+    .portal-side-card p {
+      margin: 0;
+    }
+
+    .portal-side-card h2 {
+      font-size: 18px;
+    }
+
+    .portal-business-description,
+    .portal-pack-details {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-line;
+    }
+
+    .portal-pack-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .portal-pack-option {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--panel-soft);
+      color: var(--text);
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      display: grid;
+      gap: 4px;
+    }
+
+    .portal-pack-option:hover,
+    .portal-pack-option[aria-expanded="true"] {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .portal-pack-option-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .portal-pack-option strong {
+      font-size: 13px;
+    }
+
+    .portal-pack-price {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .portal-pack-summary {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .portal-pack-details {
+      display: none;
+      padding-top: 7px;
+      border-top: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+    }
+
+    .portal-pack-option[aria-expanded="true"] .portal-pack-details {
+      display: block;
+    }
+
+    .portal-upcoming-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .portal-upcoming-item {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--panel);
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .portal-upcoming-item:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .portal-upcoming-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .portal-upcoming-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .portal-upcoming-copy strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    .portal-upcoming-copy span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* Stats */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat-tile {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-tile-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 0 0 10px;
+    }
+
+    .stat-tile-value {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+
+    .stat-tile.accent .stat-tile-value {
+      color: var(--accent);
+    }
+
+    .stat-tile-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Section header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .section-count {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Week nav */
+    .week-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .week-nav button {
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--panel);
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .week-nav button:hover {
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
+    }
+
+    .week-label-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      min-width: 160px;
+      text-align: center;
+      font-family: var(--font-mono);
+    }
+
+    /* Schedule */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .day-divider {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 8px 0 2px;
+    }
+
+    .schedule-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .schedule-item:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .schedule-time-col {
+      text-align: center;
+      border-right: 1px solid var(--border);
+      padding-right: 16px;
+    }
+
+    .schedule-time {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      display: block;
+      color: var(--text);
+    }
+
+    .schedule-end-time {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .schedule-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 3px;
+      letter-spacing: -0.01em;
+    }
+
+    .schedule-info p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .schedule-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .capacity-badge {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .book-btn {
+      font-size: 12px;
+      padding: 7px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      font-weight: 500;
+      transition: background var(--transition), opacity var(--transition);
+      white-space: nowrap;
+    }
+
+    .book-btn:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .book-btn.booked {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+      cursor: default;
+    }
+
+    .book-btn.full {
+      background: var(--muted-bg);
+      color: var(--muted-text);
+      border: 1px solid var(--border);
+      cursor: not-allowed;
+    }
+
+    /* Bookings */
+    .booking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .booking-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .booking-item-left h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .booking-item-left p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .booking-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+    }
+
+    .cancel-btn {
+      font-size: 12px;
+      color: var(--muted);
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-weight: 500;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .cancel-btn:hover {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    /* Empty state */
+    .portal-empty {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 32px 0;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .portal-schedule-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .schedule-legend {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 9px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-soft);
+    }
+
+    .legend-dot,
+    .legend-tick {
+      display: inline-grid;
+      place-items: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .legend-dot.bookable {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+    }
+
+    .legend-dot.past {
+      background: #e5e7eb;
+      border: 1px solid #cbd5e1;
+    }
+
+    .legend-tick.booked {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .portal-schedule-grid-wrap {
+      overflow: auto;
+      max-height: 560px;
+    }
+
+    .portal-schedule-grid {
+      display: grid;
+      grid-template-columns: 58px repeat(7, minmax(112px, 1fr));
+      min-width: 850px;
+    }
+
+    .portal-grid-corner,
+    .portal-grid-day,
+    .portal-time-label,
+    .portal-slot {
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .portal-grid-corner,
+    .portal-grid-day {
+      background: var(--panel-soft);
+      border-top: 1px solid var(--border);
+      padding: 7px 8px;
+    }
+
+    .portal-grid-corner,
+    .portal-time-label {
+      border-left: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .portal-grid-day {
+      display: grid;
+      gap: 1px;
+    }
+
+    .portal-grid-day strong {
+      font-size: 13px;
+    }
+
+    .portal-grid-day span {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .portal-time-row {
+      display: contents;
+    }
+
+    .portal-time-label {
+      padding: 7px 8px;
+    }
+
+    .portal-slot {
+      height: 50px;
+      padding: 4px;
+      display: grid;
+      align-content: start;
+      gap: 4px;
+      background: #fff;
+      overflow: visible;
+      position: relative;
+    }
+
+    .portal-event-card {
+      min-height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel-soft);
+      padding: 6px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+      transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    .portal-event-card.is-bookable {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      cursor: pointer;
+    }
+
+    .portal-event-card.is-bookable:hover {
+      background: #dbeafe;
+      box-shadow: var(--shadow-sm);
+      z-index: 4;
+    }
+
+    .portal-event-card.is-booked {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+    }
+
+    .portal-event-card.is-booking-pending {
+      pointer-events: none;
+      animation: booking-card-confirm 420ms ease-out both;
+    }
+
+    .portal-event-card.is-past {
+      background: #f1f5f9;
+      border-color: #d7dde6;
+      color: var(--muted-text);
+      opacity: 0.78;
+    }
+
+    .portal-event-card.is-full {
+      background: var(--muted-bg);
+      border-color: var(--border);
+      opacity: 0.82;
+    }
+
+    .portal-event-compact {
+      display: grid;
+      gap: 1px;
+      min-width: 0;
+      line-height: 1.15;
+    }
+
+    .portal-event-compact strong,
+    .portal-event-compact span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .portal-event-compact strong {
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .portal-event-compact span {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .portal-event-check {
+      display: none;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--success-text);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .portal-event-card.is-booked .portal-event-check {
+      display: inline-grid;
+    }
+
+    .portal-event-card.is-booking-pending .portal-event-check {
+      animation: booking-check-confirm 420ms cubic-bezier(0.2, 1.5, 0.5, 1) both;
+    }
+
+    @keyframes booking-card-confirm {
+      0% { transform: scale(0.98); background: #eff6ff; }
+      55% { transform: scale(1.025); }
+      100% { transform: scale(1); background: var(--success-bg); }
+    }
+
+    @keyframes booking-check-confirm {
+      0% { opacity: 0; transform: scale(0.2) rotate(-35deg); }
+      65% { opacity: 1; transform: scale(1.2) rotate(5deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portal-event-card.is-booking-pending,
+      .portal-event-card.is-booking-pending .portal-event-check {
+        animation: none;
+      }
+    }
+
+    .client-confirm-card {
+      max-width: 440px;
+      padding-top: 28px;
+    }
+
+    .client-confirm-message {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 14px 0 0;
+    }
+
+    .client-class-details {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .client-class-details p {
+      margin: 0;
+    }
+
+    .client-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: 999px;
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-light);
+      color: var(--danger);
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .client-modal-close:hover {
+      background: var(--danger-light);
+    }
+
+    .pack-list-mini {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pack-list-mini p {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .portal-body { padding: 16px; }
+      .schedule-item { grid-template-columns: 60px 1fr; }
+      .schedule-meta { display: none; }
+      .portal-header { padding: 14px 16px; }
+      .client-name-pill { display: none; }
+    }
+
+    @media (max-width: 1180px) {
+      .portal-body {
+        grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+      }
+
+      .portal-bookings-card {
+        grid-column: 1 / -1;
+        position: static;
+      }
+
+      .portal-upcoming-list {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .portal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-left-rail,
+      .portal-bookings-card {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body class="app-body">
+
+  <div id="app-loader" class="app-loader-overlay">
+    <div class="app-loader-box">
+      <div class="app-loader-spinner"></div>
+      <h2>Loading your portal</h2>
+      <p>Preparing your classes and bookings…</p>
+    </div>
+  </div>
+
+  <header class="portal-header">
+    <div class="portal-brand">
+      <div id="portal-logo" class="portal-logo">B</div>
+      <div class="portal-brand-text">
+        <h1>BookMyClass</h1>
+        <p id="business-name">Loading…</p>
+      </div>
+    </div>
+    <div class="portal-nav-right">
+      <button id="admin-view-switch-btn" class="view-mode-switch hidden" type="button">Admin view</button>
+      <span id="client-portal-name" class="client-name-pill">Loading…</span>
+      <button id="logout-btn" class="logout-link" type="button">Logout</button>
+    </div>
+  </header>
+
+  <div class="portal-body">
+    <aside class="portal-left-rail">
+      <section class="portal-side-card portal-business-card" aria-labelledby="portal-business-title">
+        <div id="portal-business-picture" class="portal-business-picture">
+          <img id="portal-business-logo" class="hidden" alt="" />
+          <span id="portal-business-initial">B</span>
+        </div>
+        <div>
+          <h2 id="portal-business-title">Business</h2>
+          <p id="portal-business-description" class="portal-business-description">Business information will appear here.</p>
+        </div>
+      </section>
+
+      <section id="available-packs" class="portal-side-card portal-packs-card" aria-labelledby="available-packs-title">
+        <div>
+          <h2 id="available-packs-title">Available packs</h2>
+          <p class="portal-business-description">Choose a pack to see its details.</p>
+        </div>
+        <div id="available-packs-list" class="portal-pack-list"></div>
+      </section>
+    </aside>
+
+    <main class="portal-center">
+
+    <!-- Stats -->
+    <div class="stats-row client-only">
+      <div class="stat-tile accent">
+        <p class="stat-tile-label">Remaining classes</p>
+        <p id="remaining-classes-value" class="stat-tile-value">0</p>
+        <p id="remaining-classes-sub" class="stat-tile-sub">Across active packs</p>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-tile-label">Upcoming bookings</p>
+        <p id="upcoming-bookings-value" class="stat-tile-value">0</p>
+        <p class="stat-tile-sub">Already booked</p>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-tile-label">Classes attended</p>
+        <p id="attended-classes-value" class="stat-tile-value">0</p>
+        <p class="stat-tile-sub">All time</p>
+      </div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="portal-schedule-card">
+      <div class="section-header">
+        <h2 class="section-title">Published schedule</h2>
+        <div class="week-nav">
+          <button id="prev-week-btn" type="button">< Prev</button>
+          <span id="week-label" class="week-label-text">Week</span>
+          <button id="next-week-btn" type="button">Next ></button>
+        </div>
+      </div>
+      <div id="schedule-legend" class="schedule-legend" aria-label="Schedule legend">
+        <span class="legend-item"><span class="legend-tick booked">✓</span>Booked</span>
+        <span class="legend-item"><span class="legend-dot bookable"></span>Click to book!</span>
+        <span class="legend-item"><span class="legend-dot past"></span>Past class</span>
+      </div>
+      <div id="client-schedule-list" class="portal-schedule-grid-wrap"></div>
+    </div>
+
+    </main>
+
+    <aside class="portal-side-card portal-bookings-card client-only" aria-labelledby="portal-bookings-title">
+      <div class="section-header">
+        <h2 id="portal-bookings-title" class="section-title">My upcoming bookings</h2>
+        <span id="bookings-count" class="section-count"></span>
+      </div>
+      <div id="client-bookings-list" class="portal-upcoming-list"></div>
+    </aside>
+  </div>
+
+  <div id="client-confirm-modal" class="modal-overlay hidden">
+    <div class="modal-card client-confirm-card">
+      <button id="client-confirm-cancel-btn" class="client-modal-close" type="button" aria-label="Close">&times;</button>
+      <div class="modal-header">
+        <h3 id="client-confirm-title">Class details</h3>
+      </div>
+      <p id="client-confirm-message" class="client-confirm-message">Review this class before continuing.</p>
+      <div class="client-class-details">
+        <p id="client-detail-time"></p>
+        <p id="client-detail-coach"></p>
+        <p id="client-detail-spots"></p>
+      </div>
+      <div class="modal-actions">
+        <button id="client-confirm-action-btn" class="primary-btn" type="button">Book class</button>
+        <button id="client-cancel-booking-btn" class="danger-btn hidden" type="button">Cancel participation</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/client.js?v=20260808-1"></script>
+</body>
+</html>
