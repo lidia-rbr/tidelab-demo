@@ -1,3 +1,4 @@
+document.documentElement.dataset.demoDiagnostics = "loaded";
 window.addEventListener("error", (event) => {
   document.documentElement.dataset.demoError = event.error?.stack || event.message || "Script error";
 });

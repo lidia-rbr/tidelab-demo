@@ -1,5 +1,6 @@
 import { observeAuthState, getIdToken, logoutUser } from "./auth.js";
 import { apiFetch } from "./api.js";
+document.documentElement.dataset.demoApp = "loaded";
 import { showToast as showReactToast } from "../assets/react/legacy-ui.js";
 
 const businessNameEl = document.getElementById("business-name");
