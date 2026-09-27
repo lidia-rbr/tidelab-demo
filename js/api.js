@@ -1,5 +1,16 @@
 const KEY = "tidelab-real-ui-demo-v1";
 
+function demoSmileyLogo() {
+  const smileys = ["😀", "😎", "😊", "🙂", "🤩", "😁"];
+  let smiley = sessionStorage.getItem("tidelab.demo.smiley");
+  if (!smileys.includes(smiley)) {
+    smiley = smileys[Math.floor(Math.random() * smileys.length)];
+    sessionStorage.setItem("tidelab.demo.smiley", smiley);
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="50" fill="#f5f2e8"/><text x="50" y="54" text-anchor="middle" dominant-baseline="middle" font-size="64">${smiley}</text></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 function isoWeekStart(weekId) {
   const [, yearText, weekText] = String(weekId).match(/^(\d{4})-W(\d{2})$/) || [];
   const year = Number(yearText) || new Date().getFullYear();
@@ -20,7 +31,7 @@ function dateInWeek(weekId, day, hour, minute = 0) {
 
 function defaultState() {
   return {
-    business: { id: "ocean-waves", name: "Ocean Waves Surf School", slogan: "Ride more. Live more.", description: "Friendly surf coaching for every level in Ericeira.", logoDataUrl: "", subscription: { plan: "pro", status: "active" } },
+    business: { id: "ocean-waves", name: "Ocean Waves Surf School", slogan: "Ride more. Live more.", description: "Friendly surf coaching for every level in Ericeira.", logoDataUrl: demoSmileyLogo(), subscription: { plan: "pro", status: "active" } },
     member: { id: "john", userId: "demo-john", name: "John Doe", email: "john.doe@tidelab.demo", role: "owner", status: "active" },
     clients: [
       ["jane","Jane","Doe","jane.doe@example.com","+351 910 234 561","PT"], ["emma","Emma","Smith","emma@example.com","+351 912 331 883","GB"], ["lucas","Lucas","Martin","lucas@example.com","+33 612 887 321","FR"], ["sofia","Sofia","Costa","sofia@example.com","+351 934 118 492","PT"], ["noah","Noah","Williams","noah@example.com","+44 7700 900321","GB"], ["mia","Mia","Muller","mia@example.com","+49 151 234 881","DE"]
@@ -45,7 +56,11 @@ function defaultState() {
 }
 
 function load() {
-  try { return JSON.parse(sessionStorage.getItem(KEY)) || defaultState(); } catch { return defaultState(); }
+  try {
+    const stored = JSON.parse(sessionStorage.getItem(KEY)) || defaultState();
+    stored.business.logoDataUrl = demoSmileyLogo();
+    return stored;
+  } catch { return defaultState(); }
 }
 
 let state = load();

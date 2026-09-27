@@ -946,11 +946,20 @@ function seedAdminPreview_() {
   } catch {
     business_ = null;
   }
+  const smileys = ["😀", "😎", "😊", "🙂", "🤩", "😁"];
+  let smiley = sessionStorage.getItem("tidelab.demo.smiley");
+  if (!smileys.includes(smiley)) {
+    smiley = smileys[Math.floor(Math.random() * smileys.length)];
+    sessionStorage.setItem("tidelab.demo.smiley", smiley);
+  }
+  const smileySvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="50" fill="#f5f2e8"/><text x="50" y="54" text-anchor="middle" dominant-baseline="middle" font-size="64">${smiley}</text></svg>`;
+  const smileyLogo = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(smileySvg)}`;
   business_ ||= {
     name: previewBusinessName,
     description: "Surf lessons for every level, taught by local coaches in a friendly and safe environment.",
-    logoDataUrl: ""
+    logoDataUrl: smileyLogo
   };
+  business_.logoDataUrl = smileyLogo;
   availablePacks_ = [
     {
       id: "preview-pack-10",
