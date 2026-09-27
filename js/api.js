@@ -1,4 +1,4 @@
-const KEY = "tidelab-real-ui-demo-v1";
+const KEY = "tidelab-real-ui-demo-v2";
 
 function demoSmileyLogo() {
   const smileys = ["😀", "😎", "😊", "🙂", "🤩", "😁"];
@@ -34,7 +34,7 @@ function defaultState() {
     business: { id: "ocean-waves", name: "Ocean Waves Surf School", slogan: "Ride more. Live more.", description: "Friendly surf coaching for every level in Ericeira.", logoDataUrl: demoSmileyLogo(), subscription: { plan: "pro", status: "active" } },
     member: { id: "john", userId: "demo-john", name: "John Doe", email: "john.doe@tidelab.demo", role: "owner", status: "active" },
     clients: [
-      ["jane","Jane","Doe","jane.doe@example.com","+351 910 234 561","PT"], ["emma","Emma","Smith","emma@example.com","+351 912 331 883","GB"], ["lucas","Lucas","Martin","lucas@example.com","+33 612 887 321","FR"], ["sofia","Sofia","Costa","sofia@example.com","+351 934 118 492","PT"], ["noah","Noah","Williams","noah@example.com","+44 7700 900321","GB"], ["mia","Mia","Muller","mia@example.com","+49 151 234 881","DE"]
+      ["jane","Jane","Doe","jane.doe@example.com","+351 910 234 561","PT"], ["emma","Emma","Smith","emma@example.com","+351 912 331 883","GB"], ["lucas","Lucas","Martin","lucas@example.com","+33 612 887 321","FR"], ["sofia","Sofia","Costa","sofia@example.com","+351 934 118 492","PT"], ["noah","Noah","Williams","noah@example.com","+44 7700 900321","GB"], ["mia","Mia","Muller","mia@example.com","+49 151 234 881","DE"], ["oliver","Oliver","Brown","oliver@example.com","+353 851 208 773","IE"], ["ines","Ines","Silva","ines@example.com","+351 962 114 037","PT"], ["hugo","Hugo","Bernard","hugo@example.com","+33 625 440 192","FR"], ["clara","Clara","Garcia","clara@example.com","+34 612 309 824","ES"], ["liam","Liam","Taylor","liam@example.com","+44 7700 812 443","GB"], ["anna","Anna","Meier","anna@example.com","+41 791 229 085","CH"]
     ].map(([id, firstName, lastName, email, phone, country]) => ({ id, firstName, lastName, fullName: `${firstName} ${lastName}`, email, phone, country, canBook: true, status: "active", createdAt: new Date(Date.now() - 86400000 * 80).toISOString() })),
     packs: [
       { id: "pack-5", name: "Discovery Pack", type: "credits", classCount: 5, price: 95, details: "Five group classes", status: "active" },
@@ -42,9 +42,9 @@ function defaultState() {
       { id: "monthly", name: "Unlimited Month", type: "monthly", classCount: 30, price: 249, details: "Unlimited surfing for one month", status: "active" }
     ],
     clientPacks: [
-      { id: "cp-jane", clientId: "jane", clientName: "Jane Doe", packTemplateId: "pack-10", packTemplateName: "Wave Rider 10", type: "credits", price: 175, totalClasses: 10, usedClasses: 4, remainingClasses: 6, status: "active", purchasedAt: new Date(Date.now() - 86400000 * 30).toISOString() },
-      { id: "cp-emma", clientId: "emma", clientName: "Emma Smith", packTemplateId: "monthly", packTemplateName: "Unlimited Month", type: "monthly", price: 249, totalClasses: 30, usedClasses: 11, remainingClasses: 19, status: "active", purchasedAt: new Date(Date.now() - 86400000 * 18).toISOString() }
-    ],
+      ["jane","Jane Doe","pack-10","Wave Rider 10","credits",175,10,4,6,3], ["emma","Emma Smith","monthly","Unlimited Month","monthly",249,30,11,19,6], ["lucas","Lucas Martin","pack-5","Discovery Pack","credits",95,5,2,3,9], ["sofia","Sofia Costa","pack-10","Wave Rider 10","credits",175,10,6,4,13], ["noah","Noah Williams","monthly","Unlimited Month","monthly",249,30,8,22,18], ["mia","Mia Muller","pack-10","Wave Rider 10","credits",175,10,3,7,25], ["oliver","Oliver Brown","pack-5","Discovery Pack","credits",95,5,1,4,34], ["ines","Ines Silva","pack-10","Wave Rider 10","credits",175,10,5,5,43], ["hugo","Hugo Bernard","monthly","Unlimited Month","monthly",249,30,14,16,67]
+    ].map(([clientId, clientName, packTemplateId, packTemplateName, type, price, totalClasses, usedClasses, remainingClasses, daysAgo]) => ({ id: `cp-${clientId}`, clientId, clientName, packTemplateId, packTemplateName, type, price, totalClasses, usedClasses, remainingClasses, status: "active", purchasedAt: new Date(Date.now() - 86400000 * daysAgo).toISOString() }))
+    ,
     bookings: [],
     weeks: {},
     classTemplates: [
@@ -68,7 +68,15 @@ const save = () => sessionStorage.setItem(KEY, JSON.stringify(state));
 
 function weekItems(weekId) {
   if (!state.weeks[weekId]) {
-    const specs = [[0,9,"Beginner Surf","John",8,5,"#1f8f46"],[1,8,"Sunrise Session","Maya",10,7,"#ff5e32"],[2,14,"Intermediate Surf","Leo",8,6,"#2f80ed"],[3,10,"Beginner Surf","John",8,4,"#1f8f46"],[4,16,"Open Surf","Maya",12,9,"#260e8d"],[5,9,"Weekend Waves","Leo",10,8,"#d946ef"]];
+    const specs = [
+      [0,8,"Sunrise Session","Maya",10,8,"#ff5e32"], [0,11,"Beginner Surf","John",8,6,"#1f8f46"], [0,17,"Sunset Flow","Leo",12,9,"#d946ef"],
+      [1,7,"Dawn Patrol","Leo",8,5,"#260e8d"], [1,10,"Kids Surf Club","Maya",10,7,"#2f80ed"], [1,15,"Open Surf","John",12,10,"#1f8f46"],
+      [2,9,"Beginner Surf","John",8,7,"#1f8f46"], [2,13,"Intermediate Surf","Leo",8,6,"#2f80ed"], [2,17,"Sunset Flow","Maya",12,8,"#d946ef"],
+      [3,8,"Ocean Fitness","Maya",10,6,"#ff5e32"], [3,11,"Beginner Surf","John",8,5,"#1f8f46"], [3,16,"Advanced Turns","Leo",6,5,"#260e8d"],
+      [4,7,"Dawn Patrol","Leo",8,7,"#260e8d"], [4,10,"Intermediate Surf","Maya",8,6,"#2f80ed"], [4,14,"Open Surf","John",12,9,"#1f8f46"], [4,17,"Sunset Flow","Maya",12,11,"#d946ef"],
+      [5,9,"Weekend Waves","Leo",10,9,"#d946ef"], [5,12,"Family Surf","John",12,8,"#ff5e32"], [5,16,"Open Surf","Maya",12,10,"#1f8f46"],
+      [6,10,"Sunday Social","John",14,11,"#2f80ed"], [6,15,"Beginner Surf","Maya",8,6,"#1f8f46"]
+    ];
     state.weeks[weekId] = specs.map(([day,hour,className,coachName,capacity,bookedCount,color], index) => {
       const start = dateInWeek(weekId, day, hour);
       const end = new Date(start.getTime() + 90 * 60000);
@@ -77,6 +85,18 @@ function weekItems(weekId) {
     save();
   }
   return state.weeks[weekId];
+}
+
+function ensureBookings(items) {
+  items.forEach((schedule, scheduleIndex) => {
+    if (state.bookings.some((booking) => booking.scheduleId === schedule.id)) return;
+    for (let index = 0; index < schedule.bookedCount; index += 1) {
+      const client = state.clients[(scheduleIndex * 3 + index) % state.clients.length];
+      const clientPack = state.clientPacks.find((pack) => pack.clientId === client.id) || state.clientPacks[index % state.clientPacks.length];
+      state.bookings.push({ id: `booking-${schedule.id}-${index}`, clientId: client.id, clientName: client.fullName, clientPackId: clientPack.id, scheduleId: schedule.id, weekId: schedule.weekId, className: schedule.className, startAt: schedule.startAt, endAt: schedule.endAt, createdAt: new Date(new Date(schedule.startAt).getTime() - 86400000 * (2 + index)).toISOString(), status: "booked" });
+    }
+  });
+  save();
 }
 
 function response(body, status = 200) {
@@ -101,11 +121,13 @@ export async function apiFetch(input, init = {}) {
 
   if (path.endsWith("/api/dashboard")) {
     const weekIds = (url.searchParams.get("weekIds") || "").split(",").filter(Boolean);
-    return response({ user: { uid: "demo-john", email: state.member.email }, member: state.member, business: state.business, clients: state.clients, packs: state.packs, clientPacks: state.clientPacks, bookings: state.bookings, scheduleWeeks: weekIds.map((weekId) => ({ week: { weekId, status: "published", publishedAt: new Date().toISOString() }, items: weekItems(weekId) })) });
+    const scheduleWeeks = weekIds.map((weekId) => ({ week: { weekId, status: "published", publishedAt: new Date().toISOString() }, items: weekItems(weekId) }));
+    ensureBookings(scheduleWeeks.flatMap((week) => week.items));
+    return response({ user: { uid: "demo-john", email: state.member.email }, member: state.member, business: state.business, clients: state.clients, packs: state.packs, clientPacks: state.clientPacks, bookings: state.bookings, scheduleWeeks });
   }
   if (path.endsWith("/api/me")) return response({ user: { uid: "demo-john", email: state.member.email }, member: state.member, business: state.business });
   if (path.endsWith("/api/session/resolve")) return response({ role: sessionStorage.getItem("tidelab.demo.persona") === "client" ? "client" : "admin" });
-  if (path.endsWith("/api/schedule-week") && method === "GET") { const weekId = url.searchParams.get("weekId"); return response({ week: { weekId, status: "published" }, items: weekItems(weekId) }); }
+  if (path.endsWith("/api/schedule-week") && method === "GET") { const weekId = url.searchParams.get("weekId"); const items = weekItems(weekId); ensureBookings(items); return response({ week: { weekId, status: "published" }, items }); }
   if (path.endsWith("/api/schedule-week/save")) { state.weeks[payload.weekId] = payload.items || []; save(); return response({ ok: true }); }
   if (path.endsWith("/api/schedule-week/publish")) return response({ ok: true });
   if (path.endsWith("/api/clients") && method === "GET") return response({ items: state.clients });
